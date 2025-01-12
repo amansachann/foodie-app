@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
 import "./globals.css";
 import MainHeader from "@/components/main-header/main-header";
+import Footer from "@/components/footer/footer";
 
 export const metadata = {
   title: "NextLevel Food",
@@ -14,6 +15,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         
         <MainHeader />
         {children}
+        <Footer />
       </body>
     </html>
   );
