@@ -1,18 +1,8 @@
 import React from "react";
 import classes from "./meals-grid.module.css";
 import MealItem from "./meal-item";
-const MealsGrid = ({
-  meals,
-}: {
-  meals: {
-    id: string; 
-    title: string;
-    slug: string;
-    image: string;
-    summary: string;
-    creator: string;
-  }[];
-}) => {
+import {  StoredMeal } from "@/lib/meals";
+const MealsGrid = ({ meals }: { meals: StoredMeal[] }) => {
   return (
     <>
       <ul className={classes.meals}>
