@@ -4,11 +4,24 @@ import Image from "next/image";
 import { getMeal } from "@/lib/meals";
 import { notFound } from "next/navigation";
 
-const MealDetailsPage = ({ params }: { params: { mealSlug: string } }) => {
+export async function generateMetadata({ params }: { params: { mealSlug: string } }) {
+  const meal = await getMeal(params.mealSlug);
+  if (!meal) {
+    notFound();
+  }
+  return {
+    title: meal?.title,
+    description: meal?.summary,
+  };
+}
+
+// @ts-expect-error - Next.js page params type issue
+const MealDetailsPage = async ({ params }) => {
   const meal = getMeal(params.mealSlug);
   if (!meal) {
-    notFound();         // Shows the closest not found page 
+    notFound();
   }
+
   meal.instructions = meal.instructions.replace(/\n/g, "<br />");
   return (
     <>

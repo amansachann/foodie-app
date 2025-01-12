@@ -23,15 +23,19 @@ export type StoredMeal = {
   image: string;
   summary: string;
   creator: string;
+  creator_email: string;
+  instructions: string;
 };
 
 export async function getMeals(): Promise<StoredMeal[]> {
-  await new Promise((resolve) => setTimeout(resolve, 2000));
+  // await new Promise((resolve) => setTimeout(resolve, 2000));
   return db.prepare("SELECT * FROM meals").all() as StoredMeal[];
 }
 
-export function getMeal(slug: string) {
-  return db.prepare("SELECT * FROM meals WHERE slug=?").get(slug) as Meal;
+export function getMeal(slug: string): StoredMeal | undefined {
+  return db
+    .prepare("SELECT * FROM meals WHERE slug = ?")
+    .get(slug) as StoredMeal;
 }
 
 export async function saveMeal(meal: Meal) {

@@ -2,6 +2,7 @@
 
 import { redirect } from "next/navigation";
 import { Meal, saveMeal } from "./meals";
+import { revalidatePath } from "next/cache";
 
 function isInvalidText(text: string) {
   return !text || text.trim() === "";
@@ -34,5 +35,6 @@ export async function shareMeal(prevState: ShareMealState, formData: FormData) {
     return { message: "Invalid input" };
   }
   await saveMeal(meal);
+  revalidatePath("/meals");
   redirect("/meals");
 }
